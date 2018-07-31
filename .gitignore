@@ -92,6 +92,10 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+# since we use Gradle, we can ignore these files as well
+/**/*.iml
+/.idea/modules.xml
+
 ### macOS template
 # General
 .DS_Store
@@ -119,4 +123,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
