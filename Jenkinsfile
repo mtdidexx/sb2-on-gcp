@@ -14,8 +14,8 @@ pipeline {
         stage('Sonarqube') {
             steps {
                 withSonarQubeEnv('LNX Sonarqube') {
-//                    sh "${GRADLE} --info sonarqube -Dsonar.login=${SQ_USER} -Pbuild_id=${BUILD_ID} -Dsonar.host.url=${SONAR_HOST_URL}"
-                    sh "${GRADLE} --info sonarqube -Pbuild_id=${BUILD_ID}"
+                    sh "${GRADLE} --info sonarqube -Dsonar.login=${SQ_USER} -Pbuild_id=${BUILD_ID} -Dsonar.host.url=${SONAR_HOST_URL}"
+//                    sh "${GRADLE} --info sonarqube -Pbuild_id=${BUILD_ID}"
                 }
             }
         }
