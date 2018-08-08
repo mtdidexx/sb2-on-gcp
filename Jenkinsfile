@@ -13,7 +13,9 @@ pipeline {
         }
         stage('Sonarqube') {
             steps {
-                sh "${GRADLE} --info sonarqube -Dsonar.login=${SQ_USER} -Pbuild_id=${BUILD_ID}"
+                withSonarQubeEnv('LNX Sonarqube') {
+                    sh "${GRADLE} --info sonarqube -Dsonar.login=${SQ_USER} -Pbuild_id=${BUILD_ID}"
+                }
             }
         }
         stage('Quality Gate') {
