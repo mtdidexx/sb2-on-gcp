@@ -2,6 +2,7 @@ pipeline {
     agent { label 'persistent-node' }
     environment {
         GRADLE = "./gradlew --no-daemon"
+        SQ_USER = credentials('sonarqube-login')
     }
 
     stages {
