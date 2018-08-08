@@ -8,6 +8,10 @@ pipeline {
         stage('Commit') {
             steps {
                 sh "${GRADLE} clean build -Pbuild_id=${BUILD_ID}"
+            }
+        }
+        stage('Sonarqube') {
+            steps {
                 sh "${GRADLE} --info sonarqube -Dsonar.login=${SQ_USER} -Pbuild_id=${BUILD_ID}"
             }
         }
