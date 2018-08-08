@@ -5,6 +5,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 @RestController
 @RefreshScope
 public class MessageRestController {
@@ -14,5 +16,10 @@ public class MessageRestController {
     @GetMapping("/message")
     public String getMessage() {
         return this.message;
+    }
+
+    @GetMapping("/foobar")
+    public String badHombre() {
+        return new BigDecimal(Double.parseDouble("2")).toString();
     }
 }
