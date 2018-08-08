@@ -20,7 +20,6 @@ public class MessageRestController {
 
     @GetMapping("/foobar")
     public String badHombre() {
-//        return new BigDecimal(Double.parseDouble("2")).toString();
         return "2";
     }
 }
