@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        any
-    }
+    agent { label 'persistent-node' }
     environment {
         GRADLE = "./gradlew --no-daemon"
     }
