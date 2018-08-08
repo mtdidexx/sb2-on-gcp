@@ -21,9 +21,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 echo "This is the quality gate"
-//                withSonarQubeEnv('LNX Sonarqube') {
-//                    waitForQualityGate abortPipeline: true
-//                }
+                    waitForQualityGate abortPipeline: true
             }
         }
     }
