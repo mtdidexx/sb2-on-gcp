@@ -14,13 +14,18 @@ pipeline {
         stage('Sonarqube') {
             steps {
                 withSonarQubeEnv('LNX Sonarqube') {
-                    sh "${GRADLE} --info sonarqube -Dsonar.login=${SQ_USER} -Pbuild_id=${BUILD_ID}"
+//                    sh "${GRADLE} --info sonarqube -Dsonar.login=${SQ_USER} -Pbuild_id=${BUILD_ID} -Dsonar.host.url=${SONAR_HOST_URL}"
+                    sh "${GRADLE} --info sonarqube -Pbuild_id=${BUILD_ID}"
                 }
             }
         }
         stage('Quality Gate') {
             steps {
-                waitForQualityGate abortPipeline: true
+                timeout(time: 10, unit: 'MINUTES') {
+                    withSonarQubeEnv('LNX Sonarqube') {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
             }
         }
     }
