@@ -13,10 +13,27 @@ buildscript {
 plugins {
     id 'java'
     id 'org.sonarqube' version '2.6.2'
+    id 'org.ajoberstar.grgit' version '1.5.1' // a more groovy way of interacting with git
 }
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+
+ext {
+    deployVersion = 1
+
+    // set deploy version to Jenkins build id, if available.
+    if (project.hasProperty("build_id")) {
+        deployVersion = "${build_id.value}"
+    } else {
+        def date = new Date()
+        def formattedDate = date.format('yyyyMMddHHmmss')
+        deployVersion = formattedDate
+    }
+
+    //jenkins does a checkout which detaches, so we can't figure out the branch and it has to be passed in
+    branch = project.hasProperty('branch') ? branch : grgit.branch.current.name
+}
 
 group = 'net.katrinka'
 version = '0.0.1-SNAPSHOT'
