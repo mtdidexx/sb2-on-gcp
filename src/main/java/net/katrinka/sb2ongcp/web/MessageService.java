@@ -28,6 +28,7 @@ class MessageService {
     void sendMessage(String message) {
         log.info("Got message: {}", message);
         template.publish(topic, message);
+        log.info("Message Sent...");
     }
 
     @Bean
