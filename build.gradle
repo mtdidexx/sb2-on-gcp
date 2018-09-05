@@ -13,53 +13,33 @@ buildscript {
 plugins {
     id 'java'
     id 'org.sonarqube' version '2.6.2'
-    id 'org.ajoberstar.grgit' version '1.5.1' // a more groovy way of interacting with git
 }
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-ext {
-    deployVersion = 1
-
-    // set deploy version to Jenkins build id, if available.
-    if (project.hasProperty("build_id")) {
-        deployVersion = "${build_id.value}"
-    } else {
-        def date = new Date()
-        def formattedDate = date.format('yyyyMMddHHmmss')
-        deployVersion = formattedDate
-    }
-
-    //jenkins does a checkout which detaches, so we can't figure out the branch and it has to be passed in
-    branch = project.hasProperty('branch') ? branch : grgit.branch.current.name
-}
-
 group = 'net.katrinka'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 1.10
+targetCompatibility = 1.10
 
 repositories {
 	mavenCentral()
-	maven { url "https://repo.spring.io/milestone" }
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
 }
 
-
 ext {
-	springCloudGcpVersion = '1.0.0.RC1'
+	springCloudGcpVersion = '1.1.0.M1'
 	springCloudVersion = 'Finchley.RELEASE'
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-//	compile('org.springframework.boot:spring-boot-starter-data-rest')
-//	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.cloud:spring-cloud-starter-config')
-	compile('org.springframework.cloud:spring-cloud-gcp-starter')
-	runtime('org.postgresql:postgresql')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.cloud:spring-cloud-gcp-starter-config')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {
@@ -67,6 +47,10 @@ dependencyManagement {
 		mavenBom "org.springframework.cloud:spring-cloud-gcp-dependencies:${springCloudGcpVersion}"
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+
+wrapper {
+	distributionType = Wrapper.DistributionType.ALL
 }
 
 sonarqube {

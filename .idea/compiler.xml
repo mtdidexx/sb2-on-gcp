@@ -5,8 +5,8 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="sb2-on-gcp_main" target="1.8" />
-      <module name="sb2-on-gcp_test" target="1.8" />
+      <module name="sb2-on-gcp_main" target="1.10" />
+      <module name="sb2-on-gcp_test" target="1.10" />
     </bytecodeTargetLevel>
   </component>
 </project>
