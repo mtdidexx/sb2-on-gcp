@@ -12,6 +12,7 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
     id 'org.sonarqube' version '2.6.2'
 }
 
@@ -37,8 +38,10 @@ ext {
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-integration')
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	implementation('org.springframework.cloud:spring-cloud-gcp-starter-config')
+    implementation('org.springframework.cloud:spring-cloud-gcp-starter-pubsub')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
@@ -47,6 +50,11 @@ dependencyManagement {
 		mavenBom "org.springframework.cloud:spring-cloud-gcp-dependencies:${springCloudGcpVersion}"
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+
+lombok {
+    version = '1.18.2'
+    sha256 = ""
 }
 
 wrapper {
