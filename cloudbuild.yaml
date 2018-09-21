@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/gradle'
     args: ['build']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy']
-    timeout: '600s'
+#  - name: 'gcr.io/cloud-builders/gcloud'
+#    args: ['app', 'deploy']
+#    timeout: '600s'

@@ -10,6 +10,7 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.channel.MessageChannels;
 import org.springframework.messaging.SubscribableChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -19,15 +20,16 @@ class MessageService {
     private final String topic;
     private final PubSubTemplate template;
 
-    public MessageService(@Value("${sbmessage.topic:firstTopic}") String topic,
+    public MessageService(@Value("${createTopicName}") String topic,
                           PubSubTemplate template) {
         this.topic = topic;
         this.template = template;
+        log.info("topic name: {}", topic);
     }
 
     void sendMessage(String message) {
         log.info("Got message: {}", message);
-        template.publish(topic, message);
+        outgoing().send(MessageBuilder.withPayload(message).build());
         log.info("Message Sent...");
     }
 
